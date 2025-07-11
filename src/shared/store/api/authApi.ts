@@ -18,7 +18,7 @@ class AuthApi {
 
   async register(command: IRegisterCommand): Promise<IAuthResult> {
     const authResult = await api.post<IAuthCommand, IAuthResult>('/auth/register', {
-      command,
+      ...command,
       emailRedirectTo: `${location.origin}/auth/emailConfirmation`
     });
     this.persistAuthResult(authResult);

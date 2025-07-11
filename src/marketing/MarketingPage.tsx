@@ -1,5 +1,6 @@
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import {Link} from 'react-router';
 
 export const MarketingPage = () => {
   return (
@@ -8,7 +9,15 @@ export const MarketingPage = () => {
       <Typography variant="body2" color="textSecondary">
         Here you will find collections and a lot of staff
       </Typography>
-      <Button href="app/collections" variant="outlined">Go to collectoria</Button>
+      <Button
+        component={Link}
+        to="/app/collections"
+        variant="contained"
+        color="primary"
+        sx={{mt: 3}}
+      >
+        Go to collectoria
+      </Button>
     </div>
   );
 };

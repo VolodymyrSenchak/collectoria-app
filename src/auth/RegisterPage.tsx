@@ -32,7 +32,7 @@ export const RegisterPage = () => {
   return (
     <Box>
       <Card>
-        <CardTitle title='Login' />
+        <CardTitle title='Register' />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box display="flex" flexDirection="column" py={2}>
             <Controller
