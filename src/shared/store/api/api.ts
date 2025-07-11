@@ -18,7 +18,7 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  response => response,
+  response => response.data,
   async error => {
     if (error.config.url?.startsWith('/auth')) return Promise.reject(error);
 
