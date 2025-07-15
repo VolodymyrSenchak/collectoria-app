@@ -1,11 +1,11 @@
-﻿import Box from '@mui/material/Box';
-import {Card, TextField} from '@mui/material';
+﻿import {Card, TextField, Box} from '@mui/material';
 import Button from '@mui/material/Button';
 import {NavLink, useNavigate} from 'react-router';
 import {Controller, type SubmitHandler, useForm} from 'react-hook-form';
 import {CardTitle} from '../shared/components';
 import {authApi} from '../shared/store/api/authApi.ts';
 import Typography from '@mui/material/Typography';
+import {NAV_LINKS} from '../shared/utils';
 
 interface LoginFormData {
   email: string;
@@ -19,7 +19,7 @@ export const LoginPage = () => {
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     try {
       await authApi.login(data);
-      navigate('/app/collections');
+      navigate(NAV_LINKS.collections);
     } catch (error) {
       console.error(error);
       control.setError('password', { message: 'Invalid login or password' });

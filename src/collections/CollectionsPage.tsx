@@ -1,33 +1,45 @@
 import Button from '@mui/material/Button';
 import {Page, PageHeader} from '../shared/components';
 import Box from '@mui/material/Box';
-import {Card} from '@mui/material';
-import LibraryAddOutlined from '@mui/icons-material/LibraryAddOutlined';
 import Typography from '@mui/material/Typography';
+import {useCollections} from '../shared/store/collections';
+import {CreateFirstCollectionPlaceholder} from './createFirstCollectionPlaceholder';
+import {CollectionListCard} from './collectionListCard';
+import { useState } from 'react';
+import {NewCollectionModal} from './newCollectionModal';
 
 
 export const CollectionsPage = () => {
+  const [isNewCollectionModalOpened, setNewCollectionModalOpened] = useState(false);
+  const {
+    collections,
+    isCollectionsLoading
+  } = useCollections();
+
+  const handleCreateNewCollection = () => setNewCollectionModalOpened(true);
+
+  const getCollectionsTemplate = () => {
+    if (isCollectionsLoading)
+      return <Typography>Loading collections...</Typography>;
+    if (!collections || collections.length === 0)
+      return <CreateFirstCollectionPlaceholder onCreateCollection={handleCreateNewCollection}/>;
+
+    return collections.map((collection, idx) => (<CollectionListCard collection={collection} key={idx} />));
+  };
+
   return (
     <Page>
       <PageHeader title="Collections">
         <Box>
-          <Button size="medium" variant="outlined" color="primary">New collection</Button>
+          <Button size="medium" variant="outlined" color="primary" onClick={handleCreateNewCollection}>
+            New collection
+          </Button>
         </Box>
       </PageHeader>
       <Box>
-        <Card>
-          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-            <LibraryAddOutlined sx={{ fontSize: 64, color: 'disabled', mb: 2 }} />
-            <Typography fontWeight="bold" mb={1}>
-              <Button variant="text">Create your first collection</Button>
-            </Typography>
-            <Typography color="secondary">
-              Add your collections here. You can create a new collection by clicking the button above.
-            </Typography>
-          </Box>
-
-        </Card>
+        {getCollectionsTemplate()}
       </Box>
+      <NewCollectionModal open={isNewCollectionModalOpened} onClose={() => setNewCollectionModalOpened(false)} />
     </Page>
   );
 };

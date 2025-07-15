@@ -1,5 +1,6 @@
-﻿import type { ICollection } from '../../models/collections';
+﻿import type {ICollection, ICollectionSet} from '../../models/collections';
 import api from './api.ts';
+import type {AxiosResponse} from "axios";
 
 class CollectionsApi {
   async getCollections(): Promise<ICollection[]> {
@@ -7,21 +8,22 @@ class CollectionsApi {
     return response.data;
   }
 
-  async getCollection(id: string): Promise<ICollection[]> {
-    const response = await api.get<ICollection[]>(`/collections/${id}`);
+  async getCollection(id: string): Promise<ICollection> {
+    const response = await api.get<ICollection>(`/collections/${id}`);
     return response.data;
   }
 
-  async getCollectionSets(id: string): Promise<ICollection[]> {
-    const response = await api.get<ICollection[]>(`/collections/${id}/sets`);
+  async getCollectionSets(id: string): Promise<ICollectionSet[]> {
+    const response = await api.get<ICollectionSet[]>(`/collections/${id}/sets`);
     return response.data;
   }
 
-  async saveCollection(collection: ICollection): Promise<void> {
-    await api.post<ICollection>('/collections', collection);
+  async saveCollection(collection: ICollection): Promise<string> {
+    const response = await api.post<ICollection, AxiosResponse<string>>('/collections', collection);
+    return response.data;
   }
 
-  async saveCollectionSet(collectionId: string, collectionSet: ICollection): Promise<void> {
+  async saveCollectionSet(collectionId: string, collectionSet: ICollectionSet): Promise<void> {
     await api.post<ICollection>(`/collections/${collectionId}/sets`, collectionSet);
   }
 

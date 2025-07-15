@@ -8,27 +8,27 @@ import type {
   IRegisterCommand
 } from '../../models/auth.ts';
 import {authStore} from '../authStore.ts';
+import type {AxiosResponse} from 'axios';
 
 class AuthApi {
   async login(command: ILoginCommand): Promise<IAuthResult> {
-    const authResult = await api.post<IAuthCommand, IAuthResult>('/auth/login', command);
-    this.persistAuthResult(authResult);
-    return authResult;
+    const authResultResponse = await api.post<IAuthCommand, AxiosResponse<IAuthResult>>('/auth/login', command);
+    this.persistAuthResult(authResultResponse.data);
+    return authResultResponse.data;
   }
 
   async register(command: IRegisterCommand): Promise<IAuthResult> {
-    const authResult = await api.post<IAuthCommand, IAuthResult>('/auth/register', {
+    const authResultResponse = await api.post<IAuthCommand, AxiosResponse<IAuthResult>>('/auth/register', {
       ...command,
       emailRedirectTo: `${location.origin}/auth/emailConfirmation`
     });
-    this.persistAuthResult(authResult);
-    return authResult;
+    return authResultResponse.data;
   }
 
   async refreshToken(refreshToken: string): Promise<IAuthSession> {
-    const session = await api.post<never, IAuthSession>('/auth/refreshToken', { refreshToken });
-    authStore.saveAuthInfo(session);
-    return session;
+    const sessionResponse = await api.post<never, AxiosResponse<IAuthSession>>('/auth/refreshToken', { refreshToken });
+    authStore.saveAuthInfo(sessionResponse.data);
+    return sessionResponse.data;
   }
 
   async resetPassword(command: IPasswordResetCommand): Promise<void> {

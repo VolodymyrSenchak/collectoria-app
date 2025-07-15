@@ -164,7 +164,7 @@ const lightTheme = createTheme({
     },
     mode: 'light',
     primary: {
-      main: '#EA1930',
+      main: '#F19D27', //'#EA1930'
     },
     secondary: {
       main: '#655C5B',
