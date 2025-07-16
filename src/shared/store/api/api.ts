@@ -1,5 +1,6 @@
-﻿import axios from 'axios';
+﻿import axios, {type AxiosResponse} from 'axios';
 import { authStore } from '../authStore.ts';
+import type {IAuthResult} from '../../models';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const api = axios.create({ baseURL: BASE_URL });
@@ -27,15 +28,17 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = authStore.getAuthInfo()?.refresh_token;
-        const { data } = await axios.post(`${BASE_URL}/auth/refreshToken`, {
-          refresh_token: refreshToken
-        });
-
-        authStore.saveAuthInfo(data);
-        originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
+        const { data } = await axios.post<never, AxiosResponse<IAuthResult>>(
+          `${BASE_URL}/auth/refreshToken`,
+          {refreshToken}
+        );
+        authStore.saveAuthInfo(data.session);
+        authStore.saveUserInfo(data.user);
+        originalRequest.headers.Authorization = `Bearer ${data.session.access_token}`;
         return api(originalRequest);
       } catch (refreshError) {
         authStore.saveAuthInfo(null);
+        window.location.href = '/auth/login';
         return Promise.reject(refreshError);
       }
     }

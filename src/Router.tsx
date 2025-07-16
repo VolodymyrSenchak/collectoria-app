@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router';
 import { MarketingPage } from './marketing';
 import { App } from './App.tsx';
 import { CollectionsPage } from './collections';
-import { CollectionDetailsPage } from './collections/collectionDetails';
+import { CollectionDetailsPage } from './collections/collectionDetailsPage';
 import { NotFoundPage } from './layout/notFoundPage';
 import {
   AuthLayout,

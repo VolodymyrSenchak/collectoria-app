@@ -17,7 +17,6 @@ export const useCollection = (collectionId: string) => {
   return {
     collection: collectionQuery.data,
     collectionSets: collectionSetsQuery.data,
-    isCollectionLoading: collectionQuery.isLoading,
-    isSetsLoading: collectionSetsQuery.isLoading,
+    isLoading: collectionQuery.isLoading || collectionSetsQuery.isLoading,
   };
 };
