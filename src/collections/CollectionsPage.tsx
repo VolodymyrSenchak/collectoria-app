@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import {Page, PageHeader} from '../shared/components';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {useCollections} from '../shared/store/collections';
+import {useCollections, useCollectionSaver} from '../shared/store/collections';
 import {CreateFirstCollectionPlaceholder} from './createFirstCollectionPlaceholder';
 import {CollectionListCard} from './collectionListCard';
 import { useState } from 'react';
@@ -15,8 +15,14 @@ export const CollectionsPage = () => {
     collections,
     isCollectionsLoading
   } = useCollections();
+  const {
+    deleteCollection,
+  } = useCollectionSaver();
 
   const handleCreateNewCollection = () => setNewCollectionModalOpened(true);
+  const handleDeleteCollection = async (collectionId: string) => {
+    await deleteCollection(collectionId);
+  };
 
   const getCollectionsTemplate = () => {
     if (isCollectionsLoading)
@@ -24,7 +30,13 @@ export const CollectionsPage = () => {
     if (!collections || collections.length === 0)
       return <CreateFirstCollectionPlaceholder onCreateCollection={handleCreateNewCollection}/>;
 
-    return collections.map((collection, idx) => (<CollectionListCard collection={collection} key={idx} />));
+    return collections.map((collection, idx) => (
+      <CollectionListCard
+        collection={collection}
+        key={idx}
+        onDelete={handleDeleteCollection}
+      />
+    ));
   };
 
   return (

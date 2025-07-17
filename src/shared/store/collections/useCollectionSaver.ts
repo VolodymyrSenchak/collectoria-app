@@ -19,6 +19,11 @@ export const useCollectionSaver = () => {
     ...getInvalidationHandler(QUERY_KEYS.collections)
   });
 
+  const collectionDeleteMutation = useMutation({
+    mutationFn: (collectionId: string) => collectionsService.deleteCollection(collectionId),
+    ...getInvalidationHandler(QUERY_KEYS.collections)
+  });
+
   const collectionSetSaveMutation = useMutation({
     mutationFn: ({ collectionId, collectionSet, setId }: {
       collectionId: string;
@@ -39,6 +44,9 @@ export const useCollectionSaver = () => {
   return {
     saveCollection: (collection: ICollection) => collectionSaveMutation.mutateAsync(collection),
     collectionSavingStatus: collectionSaveMutation.status,
+
+    deleteCollection: (collectionId: string) => collectionDeleteMutation.mutateAsync(collectionId),
+    collectionDeleteStatus: collectionDeleteMutation.status,
 
     saveCollectionSet: (collectionId: string, collectionSet: ICollectionSet, setId: string | undefined = undefined) =>
       collectionSetSaveMutation.mutateAsync({ collectionId, collectionSet, setId }),
