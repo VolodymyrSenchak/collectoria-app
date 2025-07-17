@@ -5,19 +5,21 @@ import {CollectionDetails} from './collectionDetails/CollectionDetails.tsx';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import {CollectionSetListCard} from './collectionSetListCard/CollectionSetListCard.tsx';
-import type {ICollectionSet} from '../../shared/models/collections';
+import type {ICollectionSetMetadata} from '../../shared/models/collections';
 import {useState} from 'react';
 import {CollectionSetDetailsModal} from './collectionSetDetails/CollectionSetDetailsModal.tsx';
 import Button from '@mui/material/Button';
 import {CreateFirstSetPlaceholder} from './createFirstSetPlaceholder/CreateFirstSetPlaceholder.tsx';
+import {useCollectionSaver} from '../../shared/store/collections';
 
 export const CollectionDetailsPage = () => {
-  const {id} = useParams();
-  const {collection, collectionSets, isLoading} = useCollection(id as string);
+  const {id: collectionId} = useParams();
+  const {collection, collectionSets, isLoading} = useCollection(collectionId!);
+  const { deleteCollectionSet } = useCollectionSaver();
   const [isSetModalOpened, setSetModalOpened] = useState(false);
-  const [setToEdit, setSetToEdit] = useState<ICollectionSet | undefined>();
+  const [setToEdit, setSetToEdit] = useState<ICollectionSetMetadata | undefined>();
 
-  const openSetDetailsModal = (set: ICollectionSet | undefined = undefined) => {
+  const openSetDetailsModal = (set: ICollectionSetMetadata | undefined = undefined) => {
     setSetToEdit(set);
     setSetModalOpened(true);
   };
@@ -31,8 +33,8 @@ export const CollectionDetailsPage = () => {
           <PageHeader title={collection?.name ?? 'Collection Details'} backTo="/app/collections"/>
           <CollectionDetails collection={collection!}/>
 
-          <Box mt={2} display="flex" gap={1}>
-            <Typography variant="h5">Sets</Typography>
+          <Box mt={2} mb={1} display="flex" alignItems="center" gap={1}>
+            <Typography variant="h6">Sets</Typography>
             {(collectionSets?.length ?? 0) > 0 && (
               <Button size="medium" variant="outlined" color="primary" onClick={() => openSetDetailsModal()}>
                 New collection set
@@ -42,11 +44,12 @@ export const CollectionDetailsPage = () => {
 
           <Box>
             {collectionSets && collectionSets.length > 0 ? (
-              collectionSets.map((set, idx) => (
+              collectionSets.map(setMetadata => (
                 <CollectionSetListCard
-                  collectionSet={set}
-                  onClick={() => openSetDetailsModal(set)}
-                  key={idx}
+                  collectionSet={setMetadata.payload}
+                  onClick={() => openSetDetailsModal(setMetadata)}
+                  onDelete={() => deleteCollectionSet(collectionId!, setMetadata.id!)}
+                  key={setMetadata.id}
                 />
               ))
             ) : (

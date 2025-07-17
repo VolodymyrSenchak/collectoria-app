@@ -1,6 +1,6 @@
-﻿import type {ICollection, ICollectionSet} from '../../models/collections';
+﻿import type {ICollection, ICollectionSet, ICollectionSetMetadata} from '../../models/collections';
 import api from './api.ts';
-import type {AxiosResponse} from "axios";
+import type {AxiosResponse} from 'axios';
 
 class CollectionsApi {
   async getCollections(): Promise<ICollection[]> {
@@ -13,8 +13,8 @@ class CollectionsApi {
     return response.data;
   }
 
-  async getCollectionSets(id: string): Promise<ICollectionSet[]> {
-    const response = await api.get<ICollectionSet[]>(`/collections/${id}/sets`);
+  async getCollectionSets(id: string): Promise<ICollectionSetMetadata[]> {
+    const response = await api.get<ICollectionSetMetadata[]>(`/collections/${id}/sets`);
     return response.data;
   }
 
@@ -23,8 +23,12 @@ class CollectionsApi {
     return response.data;
   }
 
-  async saveCollectionSet(collectionId: string, collectionSet: ICollectionSet): Promise<void> {
-    await api.post<ICollection>(`/collections/${collectionId}/sets`, collectionSet);
+  async saveCollectionSet(
+    collectionId: string,
+    collectionSet: ICollectionSet,
+    id: string | undefined = undefined
+  ): Promise<void> {
+    await api.post<ICollection>(`/collections/${collectionId}/sets`, { ...collectionSet, id });
   }
 
   async deleteCollection(id: string): Promise<void> {

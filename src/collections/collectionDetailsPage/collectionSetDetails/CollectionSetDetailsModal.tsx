@@ -1,4 +1,4 @@
-﻿import type { ICollectionSet} from '../../../shared/models/collections';
+﻿import type {ICollectionSet, ICollectionSetMetadata} from '../../../shared/models/collections';
 import {AppModal, Loading} from '../../../shared/components';
 import {useCollectionSaver} from '../../../shared/store/collections';
 import {CollectionSetDetailsForm} from './CollectionSetDetailsForm.tsx';
@@ -7,16 +7,16 @@ export interface ICollectionSetDetailsParams {
   open: boolean;
   onClose: () => void;
   collectionId?: string;
-  collectionSet?: ICollectionSet;
+  collectionSet?: ICollectionSetMetadata;
 }
 
 export const CollectionSetDetailsModal = (params: ICollectionSetDetailsParams) => {
-  const { collectionSetSavingStatus } = useCollectionSaver();
+  const { collectionSetSavingStatus, saveCollectionSet } = useCollectionSaver();
 
   const handleSubmit = async (set: ICollectionSet) => {
     try {
-      console.log(set);
-      // save the collection set here
+      await saveCollectionSet(params.collectionId!, set, params.collectionSet?.id);
+      params.onClose();
     } catch (error) {
       console.error(error);
     }
@@ -34,7 +34,7 @@ export const CollectionSetDetailsModal = (params: ICollectionSetDetailsParams) =
       )}
       {collectionSetSavingStatus !== 'pending' && (
         <CollectionSetDetailsForm
-          collectionSet={params.collectionSet}
+          collectionSet={params.collectionSet?.payload}
           onSubmit={handleSubmit}
           onCancel={params.onClose}
         />

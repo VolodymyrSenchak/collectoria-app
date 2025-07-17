@@ -4,6 +4,11 @@
   description: string;
 }
 
+export interface ICollectionSetMetadata {
+  id?: string;
+  payload: ICollectionSet;
+}
+
 export interface ICollectionSet {
   name: string;
   code: string;

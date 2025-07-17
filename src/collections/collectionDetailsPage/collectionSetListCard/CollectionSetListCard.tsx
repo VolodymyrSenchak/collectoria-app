@@ -1,17 +1,30 @@
-﻿import {Card} from '@mui/material';
-import Typography from '@mui/material/Typography';
+﻿import Typography from '@mui/material/Typography';
 import type {ICollectionSet} from '../../../shared/models/collections';
-import Button from '@mui/material/Button';
+import {Box, Card, IconButton} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const CollectionSetListCard = (params: {
   collectionSet: ICollectionSet;
-  onClick?: () => void
+  onClick: () => void;
+  onDelete: () => void;
 }) => {
-  const { collectionSet, onClick } = params;
+  const {collectionSet, onClick, onDelete} = params;
   return (
-    <Card sx={{mb: 2, p: 2}}>
-      <Button variant="text" onClick={onClick}>{collectionSet.name}</Button>
-      <Typography variant="body2" color="textSecondary">Details will be here</Typography>
+    <Card sx={{mb: 2, p: 2, ':hover': {cursor: 'pointer'}}} onClick={onClick}>
+      <Box display="flex">
+        <Box flex={1}>
+          <Typography variant="h6">{collectionSet.name}</Typography>
+          <Typography variant="body2" color="textSecondary">Details will be here</Typography>
+        </Box>
+        <Box>
+          <IconButton aria-label="delete" onClick={e => {
+            e.stopPropagation();
+            onDelete();
+          }}>
+            <DeleteIcon/>
+          </IconButton>
+        </Box>
+      </Box>
     </Card>
   );
 };
