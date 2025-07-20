@@ -9,13 +9,15 @@ import LibraryBooks from '@mui/icons-material/LibraryBooks';
 import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
 import {useState} from 'react';
 import {InfoAndServicesNavItemsPopover} from '../infoAndServices/InfoAndServicesPopover.tsx';
+import {useUserSettings} from "../../shared/hooks";
 
 export const SidePanel = () => {
   const [infoAndServicesAnchorEl, setInfoAndServicesAnchorEl] = useState<HTMLDivElement | null>(null);
-  const themeMode: string = 'light';
+  const { userSettings, saveSettings } = useUserSettings();
 
-  const handleThemeChange = () => {
-
+  const handleThemeChange = async () => {
+    const theme = userSettings?.theme === 'dark' ? 'light' : 'dark';
+    await saveSettings({ ...userSettings, theme });
   };
 
   const navLink = (name: string, to: string, Icon: SvgIconComponent) => (
@@ -42,8 +44,8 @@ export const SidePanel = () => {
         <List>
           <ListItem disablePadding sx={{display: 'block'}}>
             <NavMenuItemButton
-              name={themeMode === 'dark' ? 'Light Mode' : 'Dark Mode'}
-              Icon={themeMode === 'dark' ? LightModeOutlined : DarkModeOutlined}
+              name={userSettings?.theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              Icon={userSettings?.theme === 'dark' ? LightModeOutlined : DarkModeOutlined}
               onClick={handleThemeChange}
             />
             <NavMenuItemButton

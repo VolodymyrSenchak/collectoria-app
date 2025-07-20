@@ -1,5 +1,5 @@
 ﻿import {useQuery} from '@tanstack/react-query';
-import {collectionsService} from '../api/collectionsApi.ts';
+import {collectionsService} from '../../api/collectionsApi.ts';
 
 export const useCollection = (collectionId: string) => {
   const collectionQuery = useQuery({

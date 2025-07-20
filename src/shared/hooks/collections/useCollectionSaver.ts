@@ -1,7 +1,7 @@
 ﻿import {useMutation, useQueryClient } from '@tanstack/react-query';
 import type {ICollection, ICollectionSet } from '../../models/collections';
-import { collectionsService } from '../api/collectionsApi';
-import {QUERY_KEYS} from '../queryKeys.ts';
+import { collectionsService } from '../../api/collectionsApi.ts';
+import {QUERY_KEYS} from '../../utils/queryKeys.ts';
 
 export const useCollectionSaver = () => {
   const queryClient = useQueryClient();

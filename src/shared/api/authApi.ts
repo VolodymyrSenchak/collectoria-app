@@ -2,17 +2,26 @@
 import type {
   IAuthCommand,
   IAuthResult,
-  IAuthSession,
+  IAuthSession, IGoogleLoginCommand,
   ILoginCommand,
   IPasswordResetCommand,
   IRegisterCommand
-} from '../../models/auth.ts';
-import {authStore} from '../authStore.ts';
+} from '../models/auth.ts';
+import {authStore} from '../store/authStore.ts';
 import type {AxiosResponse} from 'axios';
 
 class AuthApi {
   async login(command: ILoginCommand): Promise<IAuthResult> {
     const authResultResponse = await api.post<IAuthCommand, AxiosResponse<IAuthResult>>('/auth/login', command);
+    this.persistAuthResult(authResultResponse.data);
+    return authResultResponse.data;
+  }
+
+  async loginWithGoogle(command: IGoogleLoginCommand): Promise<IAuthResult> {
+    const authResultResponse = await api.post<IGoogleLoginCommand, AxiosResponse<IAuthResult>>(
+      '/auth/login/auth/google',
+      command
+    );
     this.persistAuthResult(authResultResponse.data);
     return authResultResponse.data;
   }

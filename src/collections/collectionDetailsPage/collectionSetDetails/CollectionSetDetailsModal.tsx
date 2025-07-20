@@ -1,6 +1,6 @@
 ﻿import type {ICollectionSet, ICollectionSetMetadata} from '../../../shared/models/collections';
 import {AppModal, Loading} from '../../../shared/components';
-import {useCollectionSaver} from '../../../shared/store/collections';
+import {useCollectionSaver} from '../../../shared/hooks/collections';
 import {CollectionSetDetailsForm} from './CollectionSetDetailsForm.tsx';
 
 export interface ICollectionSetDetailsParams {

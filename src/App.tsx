@@ -5,12 +5,15 @@ import {MUI_THEMES} from './muiTheme.ts';
 import { CssBaseline } from '@mui/material';
 import {SidePanel} from './layout/sidePanel';
 import Box from '@mui/material/Box';
+import {useUserSettings} from "./shared/hooks";
 
 export const App = () => {
-  const themeMode = 'light'; // Use theming later
+  const { userSettings } = useUserSettings();
+
+  console.log('Settings', userSettings);
 
   return (
-    <ThemeProvider theme={MUI_THEMES[themeMode]}>
+    <ThemeProvider theme={MUI_THEMES[userSettings?.theme || 'light']}>
       <CssBaseline />
       <Box display="flex" className="collectoria-app">
         <Box

@@ -2,4 +2,5 @@
   collections: 'collections',
   collection: 'collection',
   collectionSets: 'collectionSets',
+  userSettings: 'userSettings',
 };

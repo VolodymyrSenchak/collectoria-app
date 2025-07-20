@@ -8,6 +8,10 @@ export interface IAuthCommand {
 export type ILoginCommand = IAuthCommand;
 export type IRegisterCommand = IAuthCommand;
 
+export interface IGoogleLoginCommand {
+  credential: string;
+}
+
 export interface IPasswordResetCommand {
   email: string;
   redirectTo: string;

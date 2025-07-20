@@ -1,10 +1,11 @@
 ﻿import Box from '@mui/material/Box';
-import {Card, TextField} from '@mui/material';
+import {Card, Divider, TextField} from '@mui/material';
 import Button from '@mui/material/Button';
 import {NavLink, useNavigate} from 'react-router';
 import {Controller, type SubmitHandler, useForm} from 'react-hook-form';
-import {CardTitle} from '../shared/components';
-import {authApi} from '../shared/store/api/authApi.ts';
+import {CardTitle} from '../../shared/components';
+import {authApi} from '../../shared/api/authApi.ts';
+import Typography from "@mui/material/Typography";
 
 interface RegisterFormData {
   email: string;
@@ -95,9 +96,12 @@ export const RegisterPage = () => {
               Register
             </Button>
 
-            <Box display="flex" alignItems="center" pt={2}>
+            <Divider sx={{ my: '1rem' }}></Divider>
+
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Typography variant="body2" color="secondary">Already have account?</Typography>
               <NavLink to="/auth/login">
-                <Button variant="text">Back to login</Button>
+                <Button variant="outlined">Login</Button>
               </NavLink>
             </Box>
           </Box>

@@ -164,7 +164,7 @@ const lightTheme = createTheme({
     },
     mode: 'light',
     primary: {
-      main: '#F19D27', //'#EA1930'
+      main: '#EFA742', //'#EA1930'
     },
     secondary: {
       main: '#655C5B',
@@ -189,7 +189,7 @@ const darkTheme = createTheme({
       paper: '#252525',
     },
     primary: {
-      main: '#EA1930',
+      main: '#EFA742',
     },
     success: {
       main: '#0F9918',

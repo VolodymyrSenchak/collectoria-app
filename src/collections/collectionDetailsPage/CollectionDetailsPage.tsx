@@ -1,6 +1,6 @@
 import {useParams} from 'react-router';
 import {Page, PageHeader, PageSkeleton} from '../../shared/components';
-import {useCollection} from '../../shared/store/collections/useCollection.ts';
+import {useCollection} from '../../shared/hooks/collections/useCollection.ts';
 import {CollectionDetails} from './collectionDetails/CollectionDetails.tsx';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -10,7 +10,7 @@ import {useState} from 'react';
 import {CollectionSetDetailsModal} from './collectionSetDetails/CollectionSetDetailsModal.tsx';
 import Button from '@mui/material/Button';
 import {CreateFirstSetPlaceholder} from './createFirstSetPlaceholder/CreateFirstSetPlaceholder.tsx';
-import {useCollectionSaver} from '../../shared/store/collections';
+import {useCollectionSaver} from '../../shared/hooks/collections';
 
 export const CollectionDetailsPage = () => {
   const {id: collectionId} = useParams();

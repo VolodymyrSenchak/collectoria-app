@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import {Page, PageHeader} from '../shared/components';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {useCollections, useCollectionSaver} from '../shared/store/collections';
+import {useCollections, useCollectionSaver} from '../shared/hooks/collections';
 import {CreateFirstCollectionPlaceholder} from './createFirstCollectionPlaceholder';
 import {CollectionListCard} from './collectionListCard';
 import { useState } from 'react';

@@ -5,7 +5,7 @@ import {NAV_LINKS} from '../../shared/utils';
 import type {ICollection} from '../../shared/models/collections';
 import {Controller, useForm} from 'react-hook-form';
 import {AppModal, Loading} from '../../shared/components';
-import {useCollectionSaver} from '../../shared/store/collections';
+import {useCollectionSaver} from '../../shared/hooks/collections';
 
 export const NewCollectionModal = (params: {
   open: boolean;

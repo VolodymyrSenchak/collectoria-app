@@ -1,4 +1,4 @@
-﻿import type {ICollection, ICollectionSet, ICollectionSetMetadata} from '../../models/collections';
+﻿import type {ICollection, ICollectionSet, ICollectionSetMetadata} from '../models/collections';
 import api from './api.ts';
 import type {AxiosResponse} from 'axios';
 
