@@ -32,7 +32,7 @@ export const ResetPasswordRequestPage = () => {
   return (
     <Box>
       <Card>
-        <CardTitle title='Register' />
+        <CardTitle title='Password Reset' />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box display="flex" flexDirection="column" py={2}>
             <Typography variant="caption">
