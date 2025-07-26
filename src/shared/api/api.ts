@@ -4,11 +4,17 @@ import type {IAuthResult} from '../models';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const api = axios.create({ baseURL: BASE_URL });
+const AUTH_SECURE_ENDPOINTS = ['/auth/changePassword'];
+
+const isAnonymousEndpoint = (url: string): boolean => {
+  return url.startsWith('/auth') && !AUTH_SECURE_ENDPOINTS.some(e => url.startsWith(e));
+}
 
 // Add a request interceptor
 api.interceptors.request.use(
   config => {
-    if (config.url?.startsWith('/auth')) return config;
+    if (isAnonymousEndpoint(config.url!)) return config;
+
     const token = authStore.getAuthInfo()?.access_token;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -21,7 +27,8 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   response => response,
   async error => {
-    if (error.config.url?.startsWith('/auth')) return Promise.reject(error);
+    if (isAnonymousEndpoint(error.config.url!))
+      return Promise.reject(error);
 
     const originalRequest = error.config;
     if (error.response?.status === 401 && !originalRequest._retry) {

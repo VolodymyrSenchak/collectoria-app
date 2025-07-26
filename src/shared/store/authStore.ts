@@ -14,7 +14,7 @@ class AuthStore {
     return authInfo ? JSON.parse(authInfo) : null;
   }
 
-  saveUserInfo(userInfo: IUser): void {
+  saveUserInfo(userInfo: IUser | null): void {
     if (userInfo) {
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
     } else {
@@ -25,6 +25,11 @@ class AuthStore {
   getUserInfo(): IUser | null {
     const userInfo = localStorage.getItem('userInfo');
     return userInfo ? JSON.parse(userInfo) : null;
+  }
+
+  logout(): void {
+    this.saveAuthInfo(null);
+    this.saveUserInfo(null);
   }
 }
 

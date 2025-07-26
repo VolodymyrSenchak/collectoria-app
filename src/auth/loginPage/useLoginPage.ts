@@ -4,6 +4,8 @@ import {authApi} from "../../shared/api/authApi.ts";
 import {NAV_LINKS} from "../../shared/utils";
 import {useEffect, useRef} from "react";
 
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 export interface LoginFormData {
   email: string;
   password: string;
@@ -35,7 +37,7 @@ export const useLoginPage = () => {
     };
 
     google.accounts.id.initialize({
-      client_id: '136957930485-p6lqumkg46qcj0a94uni9gqdjsjsg081.apps.googleusercontent.com',
+      client_id: GOOGLE_CLIENT_ID,
       callback: handleGoogleResponse,
     });
 

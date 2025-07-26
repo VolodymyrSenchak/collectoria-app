@@ -3,7 +3,7 @@ import type {
   IAuthCommand,
   IAuthResult,
   IAuthSession, IGoogleLoginCommand,
-  ILoginCommand,
+  ILoginCommand, IPasswordChangeCommand,
   IPasswordResetCommand,
   IRegisterCommand
 } from '../models/auth.ts';
@@ -44,8 +44,8 @@ class AuthApi {
     await api.post<IPasswordResetCommand, void>('/auth/resetPassword', command);
   }
 
-  async changePassword(password: string): Promise<void> {
-    await api.post<never, void>('/auth/changePassword', { password });
+  async changePassword(command: IPasswordChangeCommand): Promise<void> {
+    await api.post<never, void>('/auth/changePassword', command);
   }
 
   private persistAuthResult(authResult: IAuthResult): void {

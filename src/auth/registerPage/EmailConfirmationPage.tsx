@@ -1,5 +1,5 @@
 ﻿import {Navigate } from 'react-router';
-import { authStore } from '../shared/store';
+import { authStore } from '../../shared/store';
 
 export const EmailConfirmationPage = () => {
   const hash = window.location.hash.substring(1); // Remove the leading '#'

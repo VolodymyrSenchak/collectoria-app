@@ -10,7 +10,8 @@ import {
   LoginPage,
   RegisterPage,
   RegistrationFinishedPage,
-  RequireAuth
+  RequireAuthPageWrapper, ChangePasswordPage,
+  ResetPasswordRequestPage, ResetPasswordRequestSentPage, ResetPasswordValidationPage
 } from './auth';
 import {ProfilePage} from './profile/ProfilePage.tsx';
 import {QueryClientApp} from './QueryClientApp.tsx';
@@ -21,11 +22,11 @@ export const Router = createBrowserRouter([
   {
     path: '/app',
     element: (
-      <RequireAuth>
+      <RequireAuthPageWrapper>
         <QueryClientApp>
           <App/>
         </QueryClientApp>
-      </RequireAuth>
+      </RequireAuthPageWrapper>
     ),
     children: [
       { index: true, element: <Navigate to="collections" replace />},
@@ -42,7 +43,11 @@ export const Router = createBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'register', element: <RegisterPage /> },
       { path: 'registrationFinished', element: <RegistrationFinishedPage/> },
-      { path: 'emailConfirmation', element: <EmailConfirmationPage /> }
+      { path: 'emailConfirmation', element: <EmailConfirmationPage /> },
+      { path: 'resetPasswordRequest', element: <ResetPasswordRequestPage/> },
+      { path: 'resetPasswordRequestSent', element: <ResetPasswordRequestSentPage/> },
+      { path: 'resetPasswordValidation', element: <ResetPasswordValidationPage /> },
+      { path: 'changePassword', element: <RequireAuthPageWrapper><ChangePasswordPage /></RequireAuthPageWrapper>}
     ]
   }
 ]);
