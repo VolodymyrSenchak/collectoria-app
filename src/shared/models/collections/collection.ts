@@ -9,13 +9,17 @@ export interface ICollectionSetMetadata {
   payload: ICollectionSet;
 }
 
-export interface ICollectionSet {
+export interface ICollectionSet extends Record<string, unknown> {
+  no: string;
   name: string;
-  code: string;
-  partsCount: number;
-  buyDate: string;
-  image: string;
+  categoryId: number;
+  imageUrl: string;
+  weight: string;
+  dimX: string;
+  dimY: string;
+  dimZ: string;
+  yearReleased: number;
+
   buyPrice: number;
-  actualPrice: number;
-  link: string;
+  buyDate: string;
 }
