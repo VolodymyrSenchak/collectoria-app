@@ -40,6 +40,11 @@ const BASE_OPTIONS = {
     },
   },
   components: {
+    MuiTextField: {
+      defaultProps: {
+        InputLabelProps: { shrink: true }
+      }
+    },
     MuiCard: {
       defaultProps: {
         variant: 'outlined',
@@ -51,6 +56,18 @@ const BASE_OPTIONS = {
         },
       }
     },
+    MuiDatePicker: {
+      defaultProps: {
+        slotProps: {
+          textField: {
+            fullWidth: true,
+            margin: 'normal',
+            InputLabelProps: { shrink: true },
+            variant: 'outlined',
+          }
+        },
+      }
+    }
   },
   // shape: {
   //   borderRadius: STYLES.borderRadius.input,

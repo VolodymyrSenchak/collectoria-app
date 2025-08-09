@@ -27,7 +27,7 @@ export const CollectionSetDetailsModal = (params: ICollectionSetDetailsParams) =
       title="Collection set details"
       open={params.open}
       onClose={params.onClose!}
-      width="min(400px, 95vw)"
+      width="min(1024px, 95vw)"
     >
       {collectionSetSavingStatus === 'pending' && (
         <Loading title="Saving set..." />
