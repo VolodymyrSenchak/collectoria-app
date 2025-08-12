@@ -42,7 +42,7 @@ export const SetSearchAutocomplete = () => {
         resolve(mockData);
       }, 500);
     });
-  }
+  };
 
   return (
     <Autocomplete
@@ -52,10 +52,10 @@ export const SetSearchAutocomplete = () => {
           setValue({
             no: newValue,
           });
-        } else if (newValue && newValue.inputValue) {
+        } else if (newValue && newValue.no) {
           // Create a new value from the user input
           setValue({
-            no: newValue.inputValue,
+            no: newValue.no,
           });
         } else {
           setValue(newValue);
@@ -75,11 +75,11 @@ export const SetSearchAutocomplete = () => {
           return option;
         }
         // Add "xxx" option created dynamically
-        if (option.inputValue) {
-          return option.inputValue;
+        if (option.no) {
+          return option.no;
         }
         // Regular option
-        return option.name;
+        return option.no;
       }}
       renderOption={(props, option) => {
         const { key, ...optionProps } = props;
@@ -95,4 +95,4 @@ export const SetSearchAutocomplete = () => {
       )}
     />
   );
-}
+};
