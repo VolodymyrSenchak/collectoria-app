@@ -26,7 +26,8 @@ export const NumberControl = <T extends Record<string, unknown>>({
           helperText={fieldState.error?.message}
           slotProps={{
             htmlInput: {
-              min: 0
+              min: 0,
+              step: 'any'
             }
           }}
           onChange={(e) => {

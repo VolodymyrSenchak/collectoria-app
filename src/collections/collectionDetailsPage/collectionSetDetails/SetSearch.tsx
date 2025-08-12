@@ -13,8 +13,11 @@ export const SetSearch = (params: {
   const { loading, waitWithLoading } = useLoading();
 
   const searchSetByEnteredCode = async () => {
-    if (isEmpty(setNo)) return;
-    const setIntegration = await waitWithLoading(setsIntegrationApi.findSetByCode(setNo));
+    const preparedSetNo = setNo.trim();
+
+    if (isEmpty(preparedSetNo)) return;
+
+    const setIntegration = await waitWithLoading(setsIntegrationApi.findSetByCode(preparedSetNo));
     setIntegrationSet(setIntegration);
   };
 
